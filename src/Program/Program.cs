@@ -1,6 +1,7 @@
 ﻿using System;
 using CompAndDel.Pipes;
 using CompAndDel.Filters;
+using Ucu.Poo.Twitter;
 
 namespace CompAndDel
 {
@@ -52,6 +53,15 @@ namespace CompAndDel
 
             PictureProvider p = new PictureProvider();
             p.SavePicture(picture, "beerNew.jpg");
+
+            // Ejercicio 3
+            var twitter = new TwitterImage();
+            string imagePath = File.Exists(@"../../beerNew.jpg") ? @"../../beerNew.jpg" : @"beerNew.jpg";
+            Console.WriteLine(twitter.PublishToTwitter("Imagen editada", imagePath));
+
+            var twitterDirectMessage = new TwitterMessage();
+            Console.WriteLine(twitterDirectMessage.SendMessage("¡Hola!", "1396065818"));
+
             
         }
     }
