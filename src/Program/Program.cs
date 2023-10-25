@@ -3,6 +3,7 @@ using System.IO;
 using CompAndDel.Pipes;
 using CompAndDel.Filters;
 using Ucu.Poo.Twitter;
+using Ucu.Poo.Cognitive;
 
 namespace CompAndDel
 {
@@ -76,10 +77,10 @@ namespace CompAndDel
             IFilter filter0 = new FilterNegative();
             IFilter filter1 = new FilterGreyscale();
             FilterConditional filter2 = new FilterConditional();
-            IFilter filter3 = new FilterTwitter();
+            IFilter filter3 = new TwitterFilter();
 
-            IPipe hasFacePipe = new PipeSerial(filter3, new PipeNull())
-            IPipe noFacePipe = new PipeSerial(filter0, new PipeNull())
+            IPipe hasFacePipe = new PipeSerial(filter3, new PipeNull());
+            IPipe noFacePipe = new PipeSerial(filter0, new PipeNull());
 
             IPipe conditionalForkPipe = new PipeConditionalFork(filter2, hasFacePipe, noFacePipe);
 
@@ -93,8 +94,8 @@ namespace CompAndDel
             IPicture intermediaResult = noFacePipe.Send(initialpicture);
             pictureProvider.SavePicture(intermediaResult, "intermediaresult.jpg");
 
-            IPicture finalResult = finalPipe.Send(intermediaResult);
-            pictureProvider.SavePicture(finalResult, "finalResult.jpg")
+            IPicture finalResult = finalPipe.Send(initialpicture);
+            pictureProvider.SavePicture(finalResult, "finalResult.jpg");
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CompAndDel;
 using Ucu.Poo.Cognitive;
+using CompAndDel.Filters;
 
 
 namespace CompAndDel.Pipes
@@ -32,7 +33,7 @@ namespace CompAndDel.Pipes
             }
             else
             {
-                return noFacePipe.Send(picture)
+                return noFacePipe.Send(picture);
             }
         }
     }

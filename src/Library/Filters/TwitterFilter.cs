@@ -9,8 +9,11 @@ namespace CompAndDel.Filters
     {
         public IPicture Filter (IPicture picture)
         {
-            var twitter = new TwitterImage(); 
-            Console.WriteLine(twitter.PublishToTwitter("Imagen editada: ", "NewPicture.jpg"));
+            var twitter = new TwitterImage();
+            string imagePath = "finalResult.jpg";
+            string tweetText = "Imagen editada";
+            string publishResult = twitter.PublishToTwitter(tweetText, imagePath);
+            Console.WriteLine("Resultado:" + publishResult);
             return picture;
         }
     }
