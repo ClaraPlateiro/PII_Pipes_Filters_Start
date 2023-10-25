@@ -7,5 +7,5 @@ using CompAndDel;
 
 namespace CompAndDel.Pipes
 {
-    
+    public class PipeConditionalFork: IPipe
 }
