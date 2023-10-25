@@ -69,7 +69,32 @@ namespace CompAndDel
             Console.WriteLine(twitterDirectMessage.SendMessage("¡Hola!", "1396065818"));
             */
 
-            
+            //Ejercicio 4
+            PictureProvider provider = new PictureProvider();
+            IPicture picture = provider.GetPicture(@"luke.jpg");
+
+            IFilter filter0 = new FilterNegative();
+            IFilter filter1 = new FilterGreyscale();
+            FilterConditional filter2 = new FilterConditional();
+            IFilter filter3 = new FilterTwitter();
+
+            IPipe hasFacePipe = new PipeSerial(filter3, new PipeNull())
+            IPipe noFacePipe = new PipeSerial(filter0, new PipeNull())
+
+            IPipe conditionalForkPipe = new PipeConditionalFork(filter2, hasFacePipe, noFacePipe);
+
+            IPipe finalPipe = new PipeSerial(filter1, conditionalForkPipe);
+
+            PictureProvider pictureProvider = new PictureProvider();
+
+            IPicture initialpicture = picture;
+            pictureProvider.SavePicture(initialpicture, "initialpicture.jpg");
+
+            IPicture intermediaResult = noFacePipe.Send(initialpicture);
+            pictureProvider.SavePicture(intermediaResult, "intermediaresult.jpg");
+
+            IPicture finalResult = finalPipe.Send(intermediaResult);
+            pictureProvider.SavePicture(finalResult, "finalResult.jpg")
         }
     }
 }
